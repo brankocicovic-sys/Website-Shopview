@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>ShopView | Heavy Duty Repair Shop Management Software</title>
+  <meta name="description" content="Shop management software for heavy duty shops. Capture more billable hours, eliminate paperwork chaos and get paid faster. Built by Shop Owners, for Shop Owners." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600&display=swap" />
+  <link rel="stylesheet" href="vendor/lenis-1.1.13/lenis.css" />
+  <!-- bump ?v= on these four whenever styles.css / *.js change -->
+  <link rel="stylesheet" href="styles.css?v=39" />
+  <!-- Decide before first paint whether the scroll flight runs (desktop, motion allowed).
+       Without this class every checkpoint renders as a static block with its still. -->
+  <script>
+    (function () {
+      var live = window.matchMedia('(min-width: 760px)').matches &&
+                 !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (live) document.documentElement.classList.add('flight-live');
+      // a reload always starts at the top (the browser would otherwise restore the old scroll
+      // position mid-flight); links with a #section still land on their section
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      window.scrollTo(0, 0);
+      window.addEventListener('load', function () {
+        // after flight.js has sized the flight on load: top, or the #section from the address
+        setTimeout(function () {
+          var el = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+          var y = el ? el.getBoundingClientRect().top + window.scrollY - 72 : 0;
+          if (window.ShopViewSmooth) { window.ShopViewSmooth.resize(); window.ShopViewSmooth.scrollTo(y, { immediate: true, force: true }); }   // resize: Lenis must know the flight's final height first
+          else window.scrollTo(0, y);
+        }, 0);
+      });
+    })();
+  </script>
+  <link rel="preload" as="image" href="assets/img/poster-s0.webp" media="(min-width: 760px) and (prefers-reduced-motion: no-preference)" />
+</head>
+<body>
+
+  <!-- ============================================================ NAV -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="https://shopview.com/" class="nav__logo nav__logo--wordmark" aria-label="ShopView home">
+        <img src="assets/brand/logo-wordmark.svg" width="161" height="30" alt="ShopView" />
+      </a>
+      <a href="https://shopview.com/" class="nav__logo nav__logo--icon" aria-label="ShopView home">
+        <img src="assets/brand/logo-mark.svg" width="34" height="34" alt="ShopView" />
+      </a>
+      <nav class="nav__links" aria-label="Main">
+        <div class="nav__item nav__item--wide">
+          <button type="button" class="nav__link nav__trigger" aria-expanded="false" aria-controls="menu-platform">Platform <svg class="nav__chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="menu menu--platform" id="menu-platform" role="region" aria-label="Platform">
+  <div class="hubs">
+    <span class="menu__h">Choose a hub</span>
+    <a class="hub is-on" href="https://shopview.com/features" data-hub="shop"><span class="hub__name">ShopHub <span class="badge badge--included">Included</span></span><span class="hub__desc">Run the shop floor</span></a>
+    <a class="hub" href="https://shopview.com/accounting-hub" data-hub="acct"><span class="hub__name">AccountingHub <span class="badge badge--addon">Add-on</span></span><span class="hub__desc">Run your shop’s finances</span></a>
+    <span class="menu__h">Services</span>
+    <a class="hub" href="https://shopview.com/accounting-bookkeeping-for-heavy-duty-repair-shops" data-hub="books"><span class="hub__name">Bookkeeping <span class="badge badge--service">Service</span></span><span class="hub__desc">We keep the books</span></a>
+  </div>
+  <div class="hubpane is-on" data-pane="shop">
+    <div class="hubpane__main">
+      <div class="hubpane__head"><b>ShopHub</b><p>Work orders, scheduling, parts and technician time — the system of record shops already run on.</p></div>
+      <div class="mgrid"><a class="mlink" href="https://shopview.com/work-order-software"><i class="mi mi--clipboard" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Work Orders</span><span class="mi__desc">Create work orders in under 2 minutes</span></span></a><a class="mlink" href="https://shopview.com/estimates-invoicing-software"><i class="mi mi--file" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Estimates &amp; Invoices</span><span class="mi__desc">Professional quotes and billing</span></span></a><a class="mlink" href="https://shopview.com/repair-scheduling-software"><i class="mi mi--calendar" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Scheduling</span><span class="mi__desc">Smart technician scheduling</span></span></a><a class="mlink" href="https://shopview.com/technician-time-tracking-software"><i class="mi mi--clock" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Time Clock</span><span class="mi__desc">Track labor hours accurately</span></span></a><a class="mlink" href="https://shopview.com/inventory-management-software"><i class="mi mi--package" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Parts Inventory</span><span class="mi__desc">Parts tracking and ordering</span></span></a><a class="mlink" href="https://shopview.com/digital-inspections-software"><i class="mi mi--check" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Digital Inspections <span class="badge">New</span></span><span class="mi__desc">Inspections on the work order line</span></span></a><a class="mlink" href="https://shopview.com/repair-shop-reporting-software"><i class="mi mi--chart" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Reporting</span><span class="mi__desc">Insights to grow your business</span></span></a><a class="mlink" href="https://shopview.com/payments"><i class="mi mi--card" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Payments <span class="badge">New</span></span><span class="mi__desc">Accept payments anywhere</span></span></a><a class="mlink" href="https://shopview.com/portal"><i class="mi mi--users" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Customer Portal</span><span class="mi__desc">Self-service for customers</span></span></a><a class="mlink" href="https://shopview.com/shopcoach"><i class="mi mi--sparkles" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">ShopCoach AI</span><span class="mi__desc">AI-powered shop assistant</span></span></a></div>
+    </div>
+    <div class="hubpane__side">
+      <span class="menu__h">Growth</span><a class="mlink" href="https://shopview.com/websites"><i class="mi mi--monitor" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Free Website &amp; Hosting</span></span></a>
+      <span class="menu__h">Integrations</span><a class="mlink" href="https://shopview.com/integrations/quickbooks"><i class="mi mi--plug" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">QuickBooks</span></span></a><a class="mlink" href="https://shopview.com/integrations/ibs"><i class="mi mi--plug" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">IBS</span></span></a><a class="mlink" href="https://shopview.com/integrations/vindecoder"><i class="mi mi--plug" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">VIN Decoder</span></span></a><a class="mlink" href="https://shopview.com/heavy-duty-truck-labor-time-guide"><i class="mi mi--book" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Labor Guides</span></span></a>
+    </div>
+  </div>
+  <div class="hubpane" data-pane="acct">
+    <div class="hubpane__main">
+      <div class="hubpane__head"><b>AccountingHub</b><p>Run your shop. Automate your accounting. Connected books, scheduled customer statements, and automated adjusting entries—all inside ShopView.</p></div>
+      <div class="mgrid"><a class="mlink" href="https://shopview.com/accounting-hub#accounts-receivable"><i class="mi mi--receipt" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Statements &amp; Collections</span><span class="mi__desc">Send statements automatically. See what’s overdue.</span></span></a><a class="mlink" href="https://shopview.com/accounting-hub#financial-statements"><i class="mi mi--chart" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Financial Statements</span><span class="mi__desc">See profit, cash flow, and financial health.</span></span></a><a class="mlink" href="https://shopview.com/accounting-hub#accounts-payable"><i class="mi mi--wallet" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Bills &amp; Payables</span><span class="mi__desc">Know what you owe and when it’s due.</span></span></a><a class="mlink" href="https://shopview.com/accounting-hub#bank-reconciliation"><i class="mi mi--bank" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Bank Reconciliation</span><span class="mi__desc">Match activity and confirm your balances.</span></span></a><a class="mlink" href="https://shopview.com/accounting-hub#month-end-close"><i class="mi mi--refresh" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Month-End Automation</span><span class="mi__desc">Automate adjusting entries and close the books.</span></span></a><a class="mlink" href="https://shopview.com/accounting-hub#general-ledger"><i class="mi mi--book" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">General Ledger <span class="badge">New</span></span><span class="mi__desc">Trace the numbers back to the work.</span></span></a></div>
+    </div>
+  </div>
+  <div class="hubpane" data-pane="books">
+    <div class="hubpane__main">
+      <div class="hubpane__head"><b>Bookkeeping</b><p>Run your shop. We’ll handle the bookkeeping. Get help keeping transactions organized, accounts reconciled, and monthly financials ready to review.</p></div>
+      <div class="mgrid"><a class="mlink" href="https://shopview.com/accounting-bookkeeping-for-heavy-duty-repair-shops#managed-accounting"><i class="mi mi--user" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Dedicated Bookkeeping Support</span><span class="mi__desc">A real person who knows your shop and your books.</span></span></a><a class="mlink" href="https://shopview.com/accounting-bookkeeping-for-heavy-duty-repair-shops"><i class="mi mi--bank" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Bank &amp; Card Reconciliation</span><span class="mi__desc">Match transactions and resolve differences.</span></span></a><a class="mlink" href="https://shopview.com/accounting-bookkeeping-for-heavy-duty-repair-shops"><i class="mi mi--check" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Transaction Review</span><span class="mi__desc">Keep income and expenses properly categorized.</span></span></a><a class="mlink" href="https://shopview.com/accounting-bookkeeping-for-heavy-duty-repair-shops#month-end-close"><i class="mi mi--refresh" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Month-End Close</span><span class="mi__desc">Get your books reconciled and closed each month.</span></span></a><a class="mlink" href="https://shopview.com/accounting-bookkeeping-for-heavy-duty-repair-shops#financial-reporting"><i class="mi mi--chart" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Financial Reporting</span><span class="mi__desc">Understand your profit, expenses, and balances.</span></span></a><a class="mlink" href="https://shopview.com/accounting-bookkeeping-for-heavy-duty-repair-shops"><i class="mi mi--users" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Accountant Coordination</span><span class="mi__desc">Keep records organized for your accountant and tax preparer.</span></span></a></div>
+    </div>
+  </div>
+</div>
+        </div>
+        <span class="nav__divider" aria-hidden="true">/</span>
+        <div class="nav__item nav__item--wide">
+          <button type="button" class="nav__link nav__trigger" aria-expanded="false" aria-controls="menu-solutions">Solutions <svg class="nav__chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="menu menu--solutions" id="menu-solutions" role="region" aria-label="Solutions"><div class="mgrid"><a class="mlink" href="https://shopview.com/diesel-truck-repair-shop-software"><i class="mi mi--truck" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Diesel Truck Repair</span><span class="mi__desc">Built for parts-heavy environments</span></span></a><a class="mlink" href="https://shopview.com/heavy-equipment-repair-software"><i class="mi mi--wrench" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Heavy Equipment Repair</span><span class="mi__desc">Built for complex machinery</span></span></a><a class="mlink" href="https://shopview.com/fleet-maintenance-management-software"><i class="mi mi--truck" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Fleet Maintenance</span><span class="mi__desc">Built for internal fleet operations</span></span></a><a class="mlink" href="https://shopview.com/agriculture-equipment-repair-shop-software"><i class="mi mi--sprout" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Agricultural Equipment</span><span class="mi__desc">Built for seasonal demands</span></span></a><a class="mlink" href="https://shopview.com/fire-truck-and-ambulance-repair-shop-software"><i class="mi mi--flame" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Fire Truck &amp; Ambulance</span><span class="mi__desc">Built for uptime and compliance</span></span></a><a class="mlink" href="https://shopview.com/truck-and-trailer-repair-shop-software"><i class="mi mi--truck" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Truck &amp; Trailer Repair</span><span class="mi__desc">Built for combined unit repairs</span></span></a><a class="mlink" href="https://shopview.com/construction-fleet-maintenance-software"><i class="mi mi--hardhat" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Construction Fleet</span><span class="mi__desc">Built for jobsite demands</span></span></a><a class="mlink" href="https://shopview.com/tow-truck-repair-shop-software"><i class="mi mi--truck" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Tow Truck Repair</span><span class="mi__desc">Built for 24/7 operations</span></span></a><a class="mlink" href="https://shopview.com/mobile-equipment-repair-shop-software"><i class="mi mi--pin" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Mobile Equipment Repair</span><span class="mi__desc">Built for on-site service</span></span></a><a class="mlink" href="https://shopview.com/rv-repair-shop-software"><i class="mi mi--wrench" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">RV Repair Shop</span><span class="mi__desc">Built for multi-system repairs</span></span></a><a class="mlink" href="https://shopview.com/multi-location-repair-shop-management-software"><i class="mi mi--pin" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Multi-Location Shop Management</span><span class="mi__desc">Built for groups running multiple sites</span></span></a><a class="mlink" href="https://shopview.com/enterprise"><i class="mi mi--building" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Enterprise Shop Management</span><span class="mi__desc">Built for operations at scale</span></span></a></div></div>
+        </div>
+        <span class="nav__divider" aria-hidden="true">/</span>
+        <div class="nav__item nav__item--anchor">
+          <a class="nav__link nav__trigger" href="https://shopview.com/free" aria-expanded="false" aria-controls="menu-free">Free Sh*t <svg class="nav__chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <div class="menu menu--free" id="menu-free" role="region" aria-label="Free tools"><div class="mlist"><a class="mlink" href="https://shopview.com/shop-profit-leak-score"><i class="mi mi--trend" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Shop Profit Leak Score</span></span></a><a class="mlink" href="https://shopview.com/free/labor-rate-calculator"><i class="mi mi--calc" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Labor Rate Calculator</span></span></a><a class="mlink" href="https://shopview.com/websites"><i class="mi mi--monitor" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Free Website</span></span></a><a class="mlink" href="https://shopview.com/mechanic-invoice-template"><i class="mi mi--file" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Free Work Orders &amp; Invoices</span></span></a><a class="mlink" href="https://shopview.com/free/metric-fastener-torque-chart"><i class="mi mi--wrench" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Metric Fastener Torque Chart</span></span></a><a class="mlink" href="https://shopview.com/free/imperial-fastener-torque-chart"><i class="mi mi--gauge" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Imperial Fastener Torque Chart</span></span></a><a class="mlink" href="https://shopview.com/free/u-bolt-torque-chart"><i class="mi mi--lock" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">U-Bolt Torque Chart</span></span></a></div></div>
+        </div>
+        <span class="nav__divider" aria-hidden="true">/</span>
+        <a class="nav__link" href="https://shopview.com/learn">Learn</a>
+      </nav>
+      <div class="nav__actions">
+        <a href="https://app.shopview.com" class="nav__login">Login</a>
+        <a href="https://shopview.com/demo" class="pill pill--ghost pill--sm nav__book-demo">Book a Demo <span class="pill__arrow" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8h9M8.5 4l4 4-4 4"/></svg></span></a>
+        <a href="https://shopview.com/trial" class="pill pill--primary pill--sm">Start Free Trial <span class="pill__arrow" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8h9M8.5 4l4 4-4 4"/></svg></span></a>
+        <button type="button" class="nav__burger" aria-expanded="false" aria-controls="mnav" aria-label="Open menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="mnav" id="mnav" hidden>
+      <details><summary>Platform</summary>
+        <div class="mnav__group"><span class="menu__h">ShopHub · Included</span><a class="mlink" href="https://shopview.com/work-order-software"><i class="mi mi--clipboard" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Work Orders</span><span class="mi__desc">Create work orders in under 2 minutes</span></span></a><a class="mlink" href="https://shopview.com/estimates-invoicing-software"><i class="mi mi--file" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Estimates &amp; Invoices</span><span class="mi__desc">Professional quotes and billing</span></span></a><a class="mlink" href="https://shopview.com/repair-scheduling-software"><i class="mi mi--calendar" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Scheduling</span><span class="mi__desc">Smart technician scheduling</span></span></a><a class="mlink" href="https://shopview.com/technician-time-tracking-software"><i class="mi mi--clock" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Time Clock</span><span class="mi__desc">Track labor hours accurately</span></span></a><a class="mlink" href="https://shopview.com/inventory-management-software"><i class="mi mi--package" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Parts Inventory</span><span class="mi__desc">Parts tracking and ordering</span></span></a><a class="mlink" href="https://shopview.com/digital-inspections-software"><i class="mi mi--check" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Digital Inspections <span class="badge">New</span></span><span class="mi__desc">Inspections on the work order line</span></span></a><a class="mlink" href="https://shopview.com/repair-shop-reporting-software"><i class="mi mi--chart" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Reporting</span><span class="mi__desc">Insights to grow your business</span></span></a><a class="mlink" href="https://shopview.com/payments"><i class="mi mi--card" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Payments <span class="badge">New</span></span><span class="mi__desc">Accept payments anywhere</span></span></a><a class="mlink" href="https://shopview.com/portal"><i class="mi mi--users" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Customer Portal</span><span class="mi__desc">Self-service for customers</span></span></a><a class="mlink" href="https://shopview.com/shopcoach"><i class="mi mi--sparkles" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">ShopCoach AI</span><span class="mi__desc">AI-powered shop assistant</span></span></a><a class="mlink" href="https://shopview.com/websites"><i class="mi mi--monitor" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Free Website &amp; Hosting</span></span></a><span class="menu__h">Integrations</span><a class="mlink" href="https://shopview.com/integrations/quickbooks"><i class="mi mi--plug" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">QuickBooks</span></span></a><a class="mlink" href="https://shopview.com/integrations/ibs"><i class="mi mi--plug" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">IBS</span></span></a><a class="mlink" href="https://shopview.com/integrations/vindecoder"><i class="mi mi--plug" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">VIN Decoder</span></span></a><a class="mlink" href="https://shopview.com/heavy-duty-truck-labor-time-guide"><i class="mi mi--book" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Labor Guides</span></span></a></div>
+        <div class="mnav__group"><span class="menu__h">AccountingHub · Add-on</span><a class="mlink" href="https://shopview.com/accounting-hub#accounts-receivable"><i class="mi mi--receipt" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Statements &amp; Collections</span><span class="mi__desc">Send statements automatically. See what’s overdue.</span></span></a><a class="mlink" href="https://shopview.com/accounting-hub#financial-statements"><i class="mi mi--chart" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Financial Statements</span><span class="mi__desc">See profit, cash flow, and financial health.</span></span></a><a class="mlink" href="https://shopview.com/accounting-hub#accounts-payable"><i class="mi mi--wallet" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Bills &amp; Payables</span><span class="mi__desc">Know what you owe and when it’s due.</span></span></a><a class="mlink" href="https://shopview.com/accounting-hub#bank-reconciliation"><i class="mi mi--bank" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Bank Reconciliation</span><span class="mi__desc">Match activity and confirm your balances.</span></span></a><a class="mlink" href="https://shopview.com/accounting-hub#month-end-close"><i class="mi mi--refresh" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Month-End Automation</span><span class="mi__desc">Automate adjusting entries and close the books.</span></span></a><a class="mlink" href="https://shopview.com/accounting-hub#general-ledger"><i class="mi mi--book" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">General Ledger <span class="badge">New</span></span><span class="mi__desc">Trace the numbers back to the work.</span></span></a></div>
+        <div class="mnav__group"><span class="menu__h">Bookkeeping · Service</span><a class="mlink" href="https://shopview.com/accounting-bookkeeping-for-heavy-duty-repair-shops#managed-accounting"><i class="mi mi--user" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Dedicated Bookkeeping Support</span><span class="mi__desc">A real person who knows your shop and your books.</span></span></a><a class="mlink" href="https://shopview.com/accounting-bookkeeping-for-heavy-duty-repair-shops"><i class="mi mi--bank" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Bank &amp; Card Reconciliation</span><span class="mi__desc">Match transactions and resolve differences.</span></span></a><a class="mlink" href="https://shopview.com/accounting-bookkeeping-for-heavy-duty-repair-shops"><i class="mi mi--check" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Transaction Review</span><span class="mi__desc">Keep income and expenses properly categorized.</span></span></a><a class="mlink" href="https://shopview.com/accounting-bookkeeping-for-heavy-duty-repair-shops#month-end-close"><i class="mi mi--refresh" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Month-End Close</span><span class="mi__desc">Get your books reconciled and closed each month.</span></span></a><a class="mlink" href="https://shopview.com/accounting-bookkeeping-for-heavy-duty-repair-shops#financial-reporting"><i class="mi mi--chart" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Financial Reporting</span><span class="mi__desc">Understand your profit, expenses, and balances.</span></span></a><a class="mlink" href="https://shopview.com/accounting-bookkeeping-for-heavy-duty-repair-shops"><i class="mi mi--users" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Accountant Coordination</span><span class="mi__desc">Keep records organized for your accountant and tax preparer.</span></span></a></div>
+      </details>
+      <details><summary>Solutions</summary><div class="mnav__group"><a class="mlink" href="https://shopview.com/diesel-truck-repair-shop-software"><i class="mi mi--truck" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Diesel Truck Repair</span><span class="mi__desc">Built for parts-heavy environments</span></span></a><a class="mlink" href="https://shopview.com/heavy-equipment-repair-software"><i class="mi mi--wrench" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Heavy Equipment Repair</span><span class="mi__desc">Built for complex machinery</span></span></a><a class="mlink" href="https://shopview.com/fleet-maintenance-management-software"><i class="mi mi--truck" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Fleet Maintenance</span><span class="mi__desc">Built for internal fleet operations</span></span></a><a class="mlink" href="https://shopview.com/agriculture-equipment-repair-shop-software"><i class="mi mi--sprout" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Agricultural Equipment</span><span class="mi__desc">Built for seasonal demands</span></span></a><a class="mlink" href="https://shopview.com/fire-truck-and-ambulance-repair-shop-software"><i class="mi mi--flame" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Fire Truck &amp; Ambulance</span><span class="mi__desc">Built for uptime and compliance</span></span></a><a class="mlink" href="https://shopview.com/truck-and-trailer-repair-shop-software"><i class="mi mi--truck" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Truck &amp; Trailer Repair</span><span class="mi__desc">Built for combined unit repairs</span></span></a><a class="mlink" href="https://shopview.com/construction-fleet-maintenance-software"><i class="mi mi--hardhat" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Construction Fleet</span><span class="mi__desc">Built for jobsite demands</span></span></a><a class="mlink" href="https://shopview.com/tow-truck-repair-shop-software"><i class="mi mi--truck" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Tow Truck Repair</span><span class="mi__desc">Built for 24/7 operations</span></span></a><a class="mlink" href="https://shopview.com/mobile-equipment-repair-shop-software"><i class="mi mi--pin" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Mobile Equipment Repair</span><span class="mi__desc">Built for on-site service</span></span></a><a class="mlink" href="https://shopview.com/rv-repair-shop-software"><i class="mi mi--wrench" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">RV Repair Shop</span><span class="mi__desc">Built for multi-system repairs</span></span></a><a class="mlink" href="https://shopview.com/multi-location-repair-shop-management-software"><i class="mi mi--pin" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Multi-Location Shop Management</span><span class="mi__desc">Built for groups running multiple sites</span></span></a><a class="mlink" href="https://shopview.com/enterprise"><i class="mi mi--building" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Enterprise Shop Management</span><span class="mi__desc">Built for operations at scale</span></span></a></div></details>
+      <details><summary>Free Sh*t</summary><div class="mnav__group"><a class="mlink" href="https://shopview.com/shop-profit-leak-score"><i class="mi mi--trend" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Shop Profit Leak Score</span></span></a><a class="mlink" href="https://shopview.com/free/labor-rate-calculator"><i class="mi mi--calc" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Labor Rate Calculator</span></span></a><a class="mlink" href="https://shopview.com/websites"><i class="mi mi--monitor" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Free Website</span></span></a><a class="mlink" href="https://shopview.com/mechanic-invoice-template"><i class="mi mi--file" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Free Work Orders &amp; Invoices</span></span></a><a class="mlink" href="https://shopview.com/free/metric-fastener-torque-chart"><i class="mi mi--wrench" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Metric Fastener Torque Chart</span></span></a><a class="mlink" href="https://shopview.com/free/imperial-fastener-torque-chart"><i class="mi mi--gauge" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">Imperial Fastener Torque Chart</span></span></a><a class="mlink" href="https://shopview.com/free/u-bolt-torque-chart"><i class="mi mi--lock" aria-hidden="true"></i><span class="mi__txt"><span class="mi__title">U-Bolt Torque Chart</span></span></a></div></details>
+      <a class="mnav__link" href="https://shopview.com/learn">Learn</a>
+      <a class="mnav__link" href="https://app.shopview.com">Login</a>
+      <div class="mnav__cta">
+        <a href="https://shopview.com/demo" class="pill pill--ghost">Book a Demo <span class="pill__arrow" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8h9M8.5 4l4 4-4 4"/></svg></span></a>
+        <a href="https://shopview.com/trial" class="pill pill--primary">Start Free Trial <span class="pill__arrow" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8h9M8.5 4l4 4-4 4"/></svg></span></a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================ FLIGHT
+         Eight checkpoints over the Night Shift scroll video. On desktop the sticky stage
+         pins while the page scrolls through .flight's height; flight.js scrubs the clips and
+         fades each checkpoint around its peak. On phones / reduced motion it is a plain
+         stack of blocks, each with its still on top. -->
+    <section class="flight" id="flight" aria-label="ShopView overview">
+      <div class="flight__stage">
+        <div class="flight__media" aria-hidden="true">
+          <img class="flight__poster" src="assets/img/poster-s0.webp" alt="" fetchpriority="high" />
+        </div>
+        <div class="flight__shade" aria-hidden="true"></div>
+
+        <!-- 01 · S0 drone · Overview -->
+        <section class="cp cp--hero" id="cp-0" data-label="Overview" aria-labelledby="cp-0-h">
+          <picture class="cp__still">
+            <source media="(min-width: 760px) and (prefers-reduced-motion: no-preference)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+            <img src="assets/stills/s0.webp" width="1280" height="714" alt="Aerial night view of the shop yard in the rain, a truck backing into a lit bay" />
+          </picture>
+          <div class="cp__inner">
+            <div class="cp__copy">
+              <p class="hero__eyebrow">Built by shop owners</p>
+              <h1 class="h-hero" id="cp-0-h">Shop management software for <span class="grad">heavy-duty shops.</span></h1>
+              <p class="hero__lede">Capture more billable hours, eliminate paperwork chaos and get paid faster.</p>
+              <div class="row">
+                <a class="pill pill--primary" href="https://shopview.com/trial">Start Free Trial <span class="pill__arrow" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8h9M8.5 4l4 4-4 4"/></svg></span></a>
+                <a class="pill pill--ghost" href="https://shopview.com/demo">Book a Demo <span class="pill__arrow" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8h9M8.5 4l4 4-4 4"/></svg></span></a>
+              </div>
+            </div>
+          </div>
+          <div class="hint" aria-hidden="true"><span class="mouse"></span>Scroll</div>
+        </section>
+
+        <!-- L0 beat · trusted by (live: fades in as the S0 copy leaves, gone before S1) -->
+        <div class="trustbeat" aria-label="Customers">
+          <p class="trustbeat__lbl">Trusted by Leading Heavy-Duty Repair Shops</p>
+          <div class="trustbeat__logos">
+            <img src="assets/img/customer-0.png" alt="Customer logo" />
+            <img src="assets/img/customer-1.png" alt="Customer logo" />
+            <img src="assets/img/customer-2.png" alt="Customer logo" />
+            <img src="assets/img/customer-3.png" alt="Customer logo" />
+            <img src="assets/img/customer-4.png" alt="Customer logo" />
+            <img src="assets/img/customer-5.png" alt="Customer logo" />
+          </div>
+        </div>
+
+        <!-- 02 · S1 truck at the door · Results (Foothills case study) -->
+        <section class="cp cp--case" id="cp-1" data-label="Results" aria-labelledby="cp-1-h">
+          <picture class="cp__still">
+            <source media="(min-width: 760px) and (prefers-reduced-motion: no-preference)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+            <img src="assets/stills/s1.webp" width="1280" height="714" loading="lazy" alt="A truck backing into the open bay at night in the rain" />
+          </picture>
+          <div class="cp__inner">
+            <div class="cp__copy">
+              <!-- layout: the case study card from the new site; content + video verbatim from the
+                   live shopview.com homepage case study block (Delta Truck Center) -->
+              <article class="case">
+                <div class="case__top">
+                  <div class="case__info">
+                    <div class="case__head">
+                      <span class="label case__label">How Heavy-Duty Repair Shops Grow with ShopView</span>
+                      <h2 class="case__title" id="cp-1-h">Delta Truck Center: From the Wild West to One-Click Oversight</h2>
+                      <a href="https://shopview.com/customers/delta-truck-center" class="case__link">
+                        <span class="case__link-icon">
+                          <img src="assets/img/arrow-right.svg" width="14" height="14" alt="" aria-hidden="true" />
+                        </span>
+                        Read Full Case Study
+                      </a>
+                    </div>
+                    <p class="case__body">Learn how a multi-location truck repair business in Texas uses ShopView to structure every repair order, see shop and mobile work from one screen, and capture more labor hours with AI story writing.</p>
+                  </div>
+                  <div class="case__media">
+                    <!-- facade: thumbnail + play button; the youtube-nocookie iframe is created on click -->
+                    <button type="button" class="yt" data-yt="O1w8RUmoR_4" data-title="Delta Truck Center Case Study" aria-label="Play video: Delta Truck Center Case Study">
+                      <img class="yt__thumb" data-src="https://i.ytimg.com/vi/O1w8RUmoR_4/hqdefault.jpg" width="480" height="360" alt="" loading="lazy" decoding="async" />
+                      <span class="yt__play" aria-hidden="true"><svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.5 7.7a8.5 8.5 0 0 0-6-6C55.2.3 34 .3 34 .3s-21.2 0-26.5 1.4a8.5 8.5 0 0 0-6 6C.1 13 .1 24 .1 24s0 11 1.4 16.3a8.5 8.5 0 0 0 6 6C12.8 47.7 34 47.7 34 47.7s21.2 0 26.5-1.4a8.5 8.5 0 0 0 6-6C67.9 35 67.9 24 67.9 24s0-11-1.4-16.3z" fill="#f00"/><path d="M45 24 27 14v20z" fill="#fff"/></svg></span>
+                    </button>
+                  </div>
+                </div>
+                <div class="case__stats">
+                  <div class="case__stat"><img class="case__icon" src="assets/img/clock.svg" width="24" height="24" alt="" /><b>2–3 Hrs</b><span>More Labor Captured on a Story</span></div>
+                  <div class="case__stat"><img class="case__icon" src="assets/img/marker-pin.svg" width="24" height="24" alt="" /><b>3</b><span>Locations, One View</span></div>
+                  <div class="case__stat"><img class="case__icon" src="assets/img/speed.svg" width="24" height="24" alt="" /><b>&lt; 1 Min</b><span>Support Response Time</span></div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- 03 · S2 main hall · Features -->
+        <section class="cp cp--low" id="cp-2" data-label="Features" aria-labelledby="cp-2-h">
+          <picture class="cp__still">
+            <source media="(min-width: 760px) and (prefers-reduced-motion: no-preference)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+            <img src="assets/stills/s2.webp" width="1280" height="714" loading="lazy" alt="The main service hall at night, a technician at the open engine of a white truck" />
+          </picture>
+          <div class="cp__inner">
+            <div class="cp__copy">
+              <span class="eyebrow">Features</span>
+              <h2 class="h2" id="cp-2-h">The Most Powerful Way to Make Your Shop More Profitable</h2>
+              <p class="p">ShopView gives heavy-duty shops the tools they need to manage repairs from first contact to final invoice without slowing down technicians, service managers, or office staff.</p>
+            </div>
+            <div class="cp__bottom trio">
+              <div>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#257cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <h3>Built for Speed</h3>
+                <p>Create work orders, assign technicians, update jobs, and move repairs forward without the paperwork bottlenecks that slow down busy shops.</p>
+              </div>
+              <div>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#257cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="15" y2="11"/></svg>
+                <h3>Smart Invoicing</h3>
+                <p>Turn completed work into accurate invoices faster, with labor, parts, notes, and job details already connected to the repair order.</p>
+              </div>
+              <div>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#257cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <h3>Technician Productivity</h3>
+                <p>Track labor hours, job progress, and technician performance so your team can capture more billable time and finish more work each day.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 04 · S3 engine close-up · Work Orders (the screen slides in, flat at the peak) -->
+        <section class="cp cp--wo cp--shot" id="cp-3" data-label="Work Orders" aria-labelledby="cp-3-h">
+          <picture class="cp__still">
+            <source media="(min-width: 760px) and (prefers-reduced-motion: no-preference)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+            <img src="assets/stills/s3.webp" width="1280" height="714" loading="lazy" alt="A technician with a work light in the engine bay of the white truck" />
+          </picture>
+          <div class="cp__inner">
+            <div class="cp__copy">
+              <nav class="tabs" aria-label="Product areas">
+                <a class="tab is-on" href="#cp-3" aria-current="true">Work Orders</a>
+                <a class="tab" href="#cp-4">Schedule</a>
+                <a class="tab" href="#cp-5">Payments</a>
+              </nav>
+              <span class="eyebrow">Work Orders</span>
+              <!-- H2 + paragraphs verbatim from the live shopview.com homepage work orders section -->
+              <h2 class="h2" id="cp-3-h">The Industry's Fastest Work Order Build-Out</h2>
+              <p class="p">ShopView helps service advisors and technicians create detailed repair orders in seconds. Instead of retyping the same information, chasing notes, or relying on paper, your team can build clean work orders that are easy to assign, track, update, and invoice.</p>
+              <p class="p">Built for heavy-duty repair operations, ShopView keeps job details organized from the first estimate through final payment. Whether your shop handles diesel repairs, truck and trailer service, fleet maintenance, or heavy equipment work, every job stays connected and easy to manage.</p>
+            </div>
+          </div>
+          <!-- real work-order screen (new site: assets/figma/app-screenshot.png); live mode: slides in
+               from below with a rotateX tilt, flat at the checkpoint peak, scrubbed by scroll (flight.js --enter) -->
+          <figure class="wo-shot">
+            <div class="wo-shot__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+            <img src="assets/img/work-order-screen.webp?v=39" width="2733" height="1507" loading="lazy" decoding="async" alt="ShopView Work Orders list with status, waiting parts, progress and lead technician for each job" />
+          </figure>
+        </section>
+
+        <!-- 05 · S4 laptop technician · Scheduling -->
+        <section class="cp cp--shot cp--sched" id="cp-4" data-label="Scheduling" aria-labelledby="cp-4-h">
+          <picture class="cp__still">
+            <source media="(min-width: 760px) and (prefers-reduced-motion: no-preference)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+            <img src="assets/stills/s4.webp" width="1280" height="714" loading="lazy" alt="A technician working on a rugged laptop at the steel bench" />
+          </picture>
+          <div class="cp__inner">
+            <div class="cp__copy">
+              <nav class="tabs" aria-label="Product areas">
+                <a class="tab" href="#cp-3">Work Orders</a>
+                <a class="tab is-on" href="#cp-4" aria-current="true">Schedule</a>
+                <a class="tab" href="#cp-5">Payments</a>
+              </nav>
+              <h2 class="h2" id="cp-4-h">Never Miss a Deadline Again</h2>
+              <p class="p">Keep every repair moving with scheduling tools built for heavy-duty shops. ShopView helps your team manage technician availability, job timelines, preventive maintenance, and repair progress from one place.</p>
+              <ul class="lanes" aria-label="Job statuses">
+                <li class="lane"><i style="background:#257cff"></i>In progress</li>
+                <li class="lane"><i style="background:#f79009"></i>Waiting on parts</li>
+                <li class="lane"><i style="background:#12b76a"></i>Ready to invoice</li>
+                <li class="lane"><i style="background:#f04438"></i>Needs attention</li>
+              </ul>
+              <p class="p p--muted">Fewer missed deadlines, less back-and-forth, and a smoother workflow across the shop.</p>
+            </div>
+          </div>
+          <!-- real Schedule week view; same frame + rise-in as the S3 screen, placed just past the technician's head -->
+          <figure class="wo-shot">
+            <div class="wo-shot__bar" aria-hidden="true"><i></i><i></i><i></i></div>
+            <img src="assets/img/schedule-screen.webp?v=39" width="3024" height="1705" loading="lazy" decoding="async" alt="ShopView Schedule week view with each technician's jobs by day and scheduling conflicts flagged" />
+          </figure>
+        </section>
+        <!-- 06 · S5 dump truck on lifts · Revenue (copy gone before the EXIT door) -->
+        <section class="cp" id="cp-5" data-label="Revenue" aria-labelledby="cp-5-h">
+          <picture class="cp__still">
+            <source media="(min-width: 760px) and (prefers-reduced-motion: no-preference)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+            <img src="assets/stills/s5.webp" width="1280" height="714" loading="lazy" alt="An orange dump truck raised on white column lifts, a technician with a work light underneath" />
+          </picture>
+          <div class="cp__inner">
+            <div class="cp__copy">
+              <nav class="tabs" aria-label="Product areas">
+                <a class="tab" href="#cp-3">Work Orders</a>
+                <a class="tab" href="#cp-4">Schedule</a>
+                <a class="tab is-on" href="#cp-5" aria-current="true">Payments</a>
+              </nav>
+              <h2 class="h2" id="cp-5-h">Drive More Revenue from Every Repair</h2>
+              <p class="p">ShopView helps repair shops increase profitability by capturing the labor, parts, and job details that often fall through the cracks.</p>
+              <ul class="checks">
+                <li>Technician time tracking</li>
+                <li>Parts inventory management</li>
+                <li>Work orders and repair invoices</li>
+                <li>Shop scheduling and workflow</li>
+                <li>Reporting and performance insights</li>
+              </ul>
+              <p class="p p--muted">From the first inspection to the final invoice, ShopView helps your shop protect margins, reduce admin work, and make every repair easier to bill correctly.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 07 · S6 parts room · Your Team -->
+        <section class="cp cp--roles" id="cp-6" data-label="Your Team" aria-labelledby="cp-6-h">
+          <picture class="cp__still">
+            <source media="(min-width: 760px) and (prefers-reduced-motion: no-preference)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+            <img src="assets/stills/s6.webp" width="1280" height="714" loading="lazy" alt="The parts room with blue racking, a parts counter and a man at a desk by a window" />
+          </picture>
+          <div class="cp__inner">
+            <div class="cp__copy">
+              <span class="eyebrow">Why you need us</span>
+              <h2 class="h2" id="cp-6-h">Making Life Easier for Everyone in Your Shop</h2>
+              <div class="roles">
+                <div class="roles__list" role="tablist" aria-label="Roles">
+                  <button type="button" role="tab" id="role-tab-owner" aria-controls="role-card" aria-selected="true" data-role="owner" class="is-on">Shop Owner<span aria-hidden="true">›</span></button>
+                  <button type="button" role="tab" id="role-tab-service" aria-controls="role-card" aria-selected="false" data-role="service">Service Manager<span aria-hidden="true">›</span></button>
+                  <button type="button" role="tab" id="role-tab-tech" aria-controls="role-card" aria-selected="false" data-role="tech">Technician<span aria-hidden="true">›</span></button>
+                  <button type="button" role="tab" id="role-tab-parts" aria-controls="role-card" aria-selected="false" data-role="parts">Parts Manager<span aria-hidden="true">›</span></button>
+                  <button type="button" role="tab" id="role-tab-admin" aria-controls="role-card" aria-selected="false" data-role="admin">Admin Staff<span aria-hidden="true">›</span></button>
+                </div>
+                <div class="roles__card" id="role-card" role="tabpanel" aria-labelledby="role-tab-owner">
+                  <h3>Shop Owner</h3>
+                  <p class="p">See how your shop is performing without digging through disconnected systems or spreadsheets.</p>
+                  <ul class="checks">
+                    <li>Track shop revenue and profitability</li>
+                    <li>Monitor technician productivity</li>
+                    <li>Review labor efficiency</li>
+                    <li>Understand where time and money are being lost</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 08 · S7 over the shoulder into Hall C · Why ShopView + final CTA (copy stays left of the monitor) -->
+        <section class="cp cp--final" id="cp-7" data-label="Why ShopView" aria-labelledby="cp-7-h">
+          <picture class="cp__still">
+            <source media="(min-width: 760px) and (prefers-reduced-motion: no-preference)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+            <img src="assets/stills/s7.webp" width="1280" height="714" loading="lazy" alt="Over the shoulder of a man at his desk, looking through a window at a fire engine on lifts and a green tractor" />
+          </picture>
+          <div class="cp__inner">
+            <div class="cp__copy">
+              <span class="eyebrow">Built by shop owners</span>
+              <h2 class="h2" id="cp-7-h">Built by Heavy-Duty Shop Owners Who Know the Grind</h2>
+              <p class="p">ShopView was created by people who understand what it takes to run a heavy-duty repair shop. We know the pressure of managing technicians, tracking labor, finding parts, keeping customers updated, and getting invoices out without losing time or money.</p>
+              <p class="p p--muted">That is why ShopView is built specifically for diesel, truck, trailer, fleet, and heavy equipment repair operations.</p>
+              <div class="row cp__cta">
+                <a class="pill pill--primary" href="https://shopview.com/trial">Start Free Trial <span class="pill__arrow" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8h9M8.5 4l4 4-4 4"/></svg></span></a>
+                <a class="pill pill--ghost" href="https://shopview.com/demo">Book a Demo <span class="pill__arrow" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8h9M8.5 4l4 4-4 4"/></svg></span></a>
+              </div>
+            </div>
+            <!-- team photo: live mode sits beside the copy, below the fire engine and left of the monitor -->
+            <figure class="team-photo">
+              <img src="assets/img/shop-owners.webp" width="1600" height="857" loading="lazy" decoding="async" alt="The ShopView team at work in the office" />
+            </figure>
+          </div>
+        </section>
+
+        <nav class="rail" aria-label="Checkpoints"></nav>
+      </div>
+    </section>
+
+    <!-- ============================================================ RESULTS -->
+    <section class="sec" id="results" aria-labelledby="results-h">
+      <div class="wrap">
+        <div class="sec__head">
+          <span class="label">What you get</span>
+          <h2 class="sec__title" id="results-h">The Results You Can Expect with ShopView</h2>
+        </div>
+        <div class="grid3">
+          <div><img class="icon" src="assets/img/trend-up-blue.svg" width="24" height="24" alt="" /><span class="big">20%+</span><p>Revenue Growth</p></div>
+          <div><img class="icon" src="assets/img/clock-blue.svg" width="24" height="24" alt="" /><span class="big">1.5 hrs</span><p>Average technician productivity improvement per day</p></div>
+          <div><img class="icon" src="assets/img/coins-blue.svg" width="24" height="24" alt="" /><span class="big">$111,300</span><p>Average annual revenue increase</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ TESTIMONIALS -->
+    <section class="reviews" aria-labelledby="reviews-h">
+      <div class="wrap reviews__header">
+        <span class="reviews__label">Testimonials</span>
+        <h2 class="reviews__title" id="reviews-h">What Real Shops Are Saying</h2>
+      </div>
+      <div class="reviews__rows" id="reviews-rows"></div>
+      <noscript>
+        <div class="wrap reviews__static">
+          <blockquote class="review-card"><p class="review-card__text">“It's allowing me to have more freedom in building jobs, switching between different vehicles on the fly and completing or deferring jobs altogether, giving me more work flow control. Previously to ShopView, we had to approach service for any small changes to the work order. When using it all day, every single day, having the ability to streamline my own jobs is critical.”</p><footer class="review-card__foot"><span class="review-card__stars-text">5/5 stars</span> Hudson P., Technician · G2</footer></blockquote>
+          <blockquote class="review-card"><p class="review-card__text">“Unmatched customer service. Ease of use. Modern user interface design.”</p><footer class="review-card__foot"><span class="review-card__stars-text">5/5 stars</span> Heather F., Administrator · Capterra</footer></blockquote>
+          <blockquote class="review-card"><p class="review-card__text">“I love how fast it is, as well as everything/anything you want to see or get to is no more than 2 clicks away. Very user friendly. They also have an amazing customer support team, they are very responsive and care about solving problems.”</p><footer class="review-card__foot"><span class="review-card__stars-text">5/5 stars</span> Taylor S., General Manager · Capterra</footer></blockquote>
+          <blockquote class="review-card"><p class="review-card__text">“The software is easy to set up! It's also intuitive making it easy to train technicians. Customer support is by far the best I have ever dealt with. Fast replies and go above and beyond to help you solve your problem. Being browser based, it was easy to deploy on tablets no matter what brand or OS.”</p><footer class="review-card__foot"><span class="review-card__stars-text">5/5 stars</span> Brian W., Fleet Coordinator · G2</footer></blockquote>
+          <blockquote class="review-card"><p class="review-card__text">“I find ShopView easy to navigate through work orders. From setting up work orders to adding parts, managing inventory with the ability to cycle count to keep inventory up to date, and managing tech times and payroll timesheets makes tracking times for payroll a breeze. The ShopView team is quick to respond to any issues that do arise.”</p><footer class="review-card__foot"><span class="review-card__stars-text">5/5 stars</span> Kerri W., Parts Specialist · Capterra</footer></blockquote>
+          <blockquote class="review-card"><p class="review-card__text">“Before ShopView, I've spent more hours (and let's not talk about the dollars) wrestling with clunky software and spreadsheet gymnastics just to get the right data to manage my team properly. Seriously, this thing is saving me time, money, and probably a few remaining brain cells. At this point, it feels less like software and more like a very competent coworker who actually shows up on time and knows what they're doing.”</p><footer class="review-card__foot"><span class="review-card__stars-text">5/5 stars</span> Jeffery D., Shop Manager · Capterra</footer></blockquote>
+          <blockquote class="review-card"><p class="review-card__text">“System changeovers are always complicated. Learning how to use ShopView and training new staff on the system has been simple (which is rare with new systems, in my experience). The support team is available to help via the chat feature, which allows for less room for errors.”</p><footer class="review-card__foot"><span class="review-card__stars-text">5/5 stars</span> Kimberly C., Parts Manager · Capterra</footer></blockquote>
+          <blockquote class="review-card"><p class="review-card__text">“ShopView has sped up our team immensely with it's ease of integration and usage as well as it's incredible feature list. It is very apparent that this software was developed by repair professionals FOR repair professionals. Implementation of the vastly superior ShopView platform from our previous software has been a breeze. The user interface is intelligently designed to create a natural and expected flow to successfully and efficiently complete each users intentions. The customer support team is incredibly helpful, and tackles any questions or training requirements without breaking a sweat.”</p><footer class="review-card__foot"><span class="review-card__stars-text">5/5 stars</span> Chris W., Shop Owner · G2</footer></blockquote>
+        </div>
+      </noscript>
+    </section>
+
+    <!-- ============================================================ BUILT FOR -->
+    <section class="sec" aria-labelledby="built-h">
+      <div class="wrap">
+        <div class="sec__head">
+          <span class="label">Built for heavy-duty</span>
+          <h2 class="sec__title" id="built-h">Built for the Way Heavy-Duty Shops Work</h2>
+        </div>
+        <div class="grid3">
+          <div><h3 class="kicker">Available on all devices</h3><p>Access ShopView from desktop, tablet, or phone so your team can manage shop data from the office, the bay, or the road.</p></div>
+          <div><h3 class="kicker">Seamless integrations</h3><p>Connect ShopView with the tools your shop already uses, including accounting and payment workflows that help reduce double entry.</p></div>
+          <div><h3 class="kicker">Comprehensive support</h3><p>Get help from a team that understands heavy-duty repair operations and knows how real shops work day to day.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ INDUSTRIES -->
+    <section class="sec" id="industries" aria-labelledby="ind-h">
+      <div class="wrap">
+        <div class="sec__head">
+          <span class="label">Solutions</span>
+          <h2 class="sec__title" id="ind-h">Repair Shop Management Software for Every Heavy-Duty Shop</h2>
+          <p class="sec__sub">ShopView supports the real-world workflows of heavy-duty repair operations, from diesel and truck repair to fleet maintenance, mobile service, RVs, emergency vehicles, and heavy equipment.</p>
+        </div>
+        <div class="ind">
+          <a href="https://shopview.com/diesel-truck-repair-shop-software"><h3>Diesel Repair</h3><p>Manage diesel repair jobs, technician labor, inspections, parts, estimates, and invoices.</p></a>
+          <a href="https://shopview.com/truck-and-trailer-repair-shop-software"><h3>Truck &amp; Trailer Repair</h3><p>Track repairs, DOT inspections, preventive maintenance, parts usage, and fleet service history.</p></a>
+          <a href="https://shopview.com/heavy-equipment-repair-software"><h3>Heavy Equipment Repair</h3><p>Handle complex equipment repairs, large parts inventories, field service work, and long repair cycles.</p></a>
+          <a href="https://shopview.com/fleet-maintenance-management-software"><h3>Fleet Maintenance</h3><p>Improve fleet uptime with service history, PM tracking, work orders, scheduling, and reporting.</p></a>
+          <a href="https://shopview.com/mobile-equipment-repair-shop-software"><h3>Mobile Truck Repair</h3><p>Manage road calls, field technicians, parts, and invoices without losing visibility outside the shop.</p></a>
+          <a href="https://shopview.com/tow-truck-repair-shop-software"><h3>Tow Truck Repair</h3><p>Keep tow truck repairs, maintenance schedules, parts, and service history organized.</p></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ QUOTE
+         The big quote from the new site (layout, type and scroll-driven reveal); text verbatim from
+         shopview.com/reviews — Davin P., Verified User, Capterra (5 stars). -->
+    <section class="sec quote" aria-label="Customer quote">
+      <div class="wrap quote__inner">
+        <blockquote class="quote__text">
+          <span class="quote__line quote__line--1">“ShopView is easy to navigate and makes the</span>
+          <span class="quote__line quote__line--2">whole workorder to invoicing process seamless”</span>
+        </blockquote>
+        <div class="quote__author">
+          <p class="quote__name">Davin P.</p>
+          <p class="quote__role">Verified User · Capterra</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ FAQ -->
+    <section class="sec" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="faq-grid">
+          <div class="sec__head">
+            <span class="label">FAQ</span>
+            <h2 class="sec__title" id="faq-h">Frequently Asked Questions</h2>
+          </div>
+          <div class="faq">
+            <details open><summary>What is heavy-duty repair shop management software?</summary><p>Heavy-duty repair shop management software helps diesel, truck, trailer, fleet, and equipment repair shops manage daily operations from one system. ShopView brings work orders, scheduling, technician time tracking, parts inventory, invoicing, customer records, and reporting together so shops can reduce paperwork and move repairs forward faster.</p></details>
+            <details><summary>How does ShopView improve technician productivity?</summary><p>ShopView gives technicians clear access to assigned jobs, repair notes, labor tracking, and job updates. Instead of waiting on paperwork or admin help, technicians can document work, log time, and move between jobs more efficiently.</p></details>
+            <details><summary>Can ShopView manage parts inventory?</summary><p>Yes. ShopView helps shops track parts usage, monitor inventory levels, manage ordering, and connect parts directly to repair orders. This helps reduce shortages, protect margins, and keep jobs from stalling.</p></details>
+            <details><summary>Does ShopView support scheduling and preventive maintenance?</summary><p>Yes. ShopView includes scheduling and workflow tools that help shops manage technician availability, job timelines, preventive maintenance, and repair progress in one place.</p></details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ FINAL CTA -->
+    <section class="sec sec--cta" aria-labelledby="cta-h">
+      <div class="wrap">
+        <div class="cta">
+          <!-- DotPattern background: 24px grid of r=0.5 dots, faded toward the edges; a second, blue layer is
+               revealed in a soft circle around the cursor (desktop only, site.js) -->
+          <svg class="cta__dots" aria-hidden="true" focusable="false">
+            <defs><pattern id="cta-dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="0.5" r="0.5" fill="#64748b" /></pattern></defs>
+            <rect width="100%" height="100%" fill="url(#cta-dots)" />
+          </svg>
+          <svg class="cta__dots cta__dots--glow" aria-hidden="true" focusable="false">
+            <defs><pattern id="cta-dots-glow" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="0.5" r="0.85" fill="#5b9bff" /></pattern></defs>
+            <rect width="100%" height="100%" fill="url(#cta-dots-glow)" />
+          </svg>
+          <h2 class="sec__title" id="cta-h">Ready to Increase Your Shop's Revenue by 20%+?</h2>
+          <p class="sec__sub">Join heavy-duty repair shops using ShopView to streamline work orders, improve technician productivity, manage parts, speed up invoicing, and grow revenue.</p>
+          <div class="row row--center">
+            <a class="pill pill--primary" href="https://shopview.com/demo">Get a Demo <span class="pill__arrow" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8h9M8.5 4l4 4-4 4"/></svg></span></a>
+            <a class="pill pill--ghost" href="https://shopview.com/pricing">View Pricing <span class="pill__arrow" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8h9M8.5 4l4 4-4 4"/></svg></span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================ FOOTER -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__top">
+        <img class="footer__logo" src="assets/brand/logo-wordmark.svg" width="161" height="30" alt="ShopView" />
+        <div class="footer__social">
+          <a href="https://x.com/shopview_app" aria-label="ShopView on X"><img src="assets/img/icon-twitter-x.svg" width="23" height="24" alt="" /></a>
+          <a href="https://www.linkedin.com/company/shopviewapp/" aria-label="ShopView on LinkedIn"><img src="assets/img/icon-linkedin.svg" width="24" height="24" alt="" /></a>
+          <a href="https://www.facebook.com/shopviewapp/" aria-label="ShopView on Facebook"><img src="assets/img/icon-facebook.svg" width="24" height="24" alt="" /></a>
+        </div>
+      </div>
+      <div class="footer__cols">
+        <div class="footer__contact">
+          <p>Have questions about how ShopView can transform your heavy duty repair shop?</p>
+          <p class="muted">Our team is ready to help with inquiries, personalized demonstrations, or implementation guidance.</p>
+          <div class="footer__contact-info">
+            <a href="tel:+18888305029">+1-888-830-5029</a>
+            <a href="mailto:sales@shopview.com">sales@shopview.com</a>
+          </div>
+        </div>
+        <div class="footer__group">
+          <h2 class="footer__h">Product</h2>
+          <ul class="footer__links">
+            <li><a href="https://shopview.com/work-order-software">Work Orders</a></li>
+            <li><a href="https://shopview.com/estimates-invoicing-software">Estimates &amp; Invoices</a></li>
+            <li><a href="https://shopview.com/inventory-management-software">Parts Inventory</a></li>
+            <li><a href="https://shopview.com/digital-inspections-software">Digital Inspections</a></li>
+            <li><a href="https://shopview.com/repair-scheduling-software">Scheduling</a></li>
+            <li><a href="https://shopview.com/repair-shop-reporting-software">Reporting</a></li>
+            <li><a href="https://shopview.com/technician-time-tracking-software">Time Clock</a></li>
+            <li><a href="https://shopview.com/websites">Website Creation</a></li>
+            <li><a href="https://shopview.com/shopcoach">ShopCoach AI</a></li>
+            <li><a href="https://shopview.com/heavy-duty-truck-labor-time-guide">Labor Time Guide</a></li>
+            <li><a href="https://shopview.com/payments">Payments</a></li>
+            <li><a href="https://shopview.com/portal">Customer Portal</a></li>
+            <li><a href="https://shopview.com/accounting-hub">AccountingHub</a></li>
+            <li><a href="https://shopview.com/accounting-bookkeeping-for-heavy-duty-repair-shops">Managed Bookkeeping</a></li>
+          </ul>
+        </div>
+        <div class="footer__group">
+          <h2 class="footer__h">Solutions</h2>
+          <ul class="footer__links">
+            <li><a href="https://shopview.com/diesel-truck-repair-shop-software">Diesel Truck Repair</a></li>
+            <li><a href="https://shopview.com/agriculture-equipment-repair-shop-software">Agricultural Equipment</a></li>
+            <li><a href="https://shopview.com/construction-fleet-maintenance-software">Construction Fleet</a></li>
+            <li><a href="https://shopview.com/heavy-equipment-repair-software">Heavy Equipment</a></li>
+            <li><a href="https://shopview.com/fire-truck-and-ambulance-repair-shop-software">Fire Truck &amp; Ambulance</a></li>
+            <li><a href="https://shopview.com/tow-truck-repair-shop-software">Tow Truck</a></li>
+            <li><a href="https://shopview.com/fleet-maintenance-management-software">Fleet Maintenance</a></li>
+            <li><a href="https://shopview.com/truck-and-trailer-repair-shop-software">Truck &amp; Trailer</a></li>
+            <li><a href="https://shopview.com/mobile-equipment-repair-shop-software">Mobile Equipment</a></li>
+            <li><a href="https://shopview.com/rv-repair-shop-software">RV Repair</a></li>
+            <li><a href="https://shopview.com/multi-location-repair-shop-management-software">Multi-Location Shop Management</a></li>
+            <li><a href="https://shopview.com/enterprise">Enterprise Shop Management</a></li>
+          </ul>
+        </div>
+        <div class="footer__group">
+          <h2 class="footer__h">Compare</h2>
+          <ul class="footer__links">
+            <li><a href="https://shopview.com/compare/shopview-vs-fullbay">ShopView vs Fullbay</a></li>
+            <li><a href="https://shopview.com/compare/shopview-vs-shopmonkey">ShopView vs Shopmonkey</a></li>
+            <li><a href="https://shopview.com/compare/shopview-vs-shopboss">ShopView vs ShopBoss</a></li>
+            <li><a href="https://shopview.com/compare/shopview-vs-mitchell1">ShopView vs Mitchell1</a></li>
+            <li><a href="https://shopview.com/compare/shopview-vs-tekmetric">ShopView vs Tekmetric</a></li>
+            <li><a href="https://shopview.com/compare/shopview-vs-easy-truck-shop">ShopView vs Easy Truck Shop</a></li>
+            <li><a href="https://shopview.com/compare/shopview-vs-maintainx">ShopView vs MaintainX</a></li>
+            <li><a href="https://shopview.com/compare/shopview-vs-gem-car">ShopView vs Gem-Car</a></li>
+            <li><a href="https://shopview.com/compare/shopview-vs-autoleap">ShopView vs Autoleap</a></li>
+            <li><a href="https://shopview.com/compare/shopview-vs-quickbooks">ShopView vs QuickBooks</a></li>
+            <li><a href="https://shopview.com/compare/shopview-vs-other-alternatives">ShopView vs Other Solutions</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__group">
+            <h2 class="footer__h">By Role</h2>
+            <ul class="footer__links">
+              <li><a href="https://shopview.com/shop-owner-software">Shop Owner</a></li>
+              <li><a href="https://shopview.com/service-manager-software">Service Manager</a></li>
+              <li><a href="https://shopview.com/technician-software">Technician</a></li>
+              <li><a href="https://shopview.com/parts-manager-software">Parts Manager</a></li>
+              <li><a href="https://shopview.com/admin-software">Admin Staff</a></li>
+            </ul>
+          </div>
+          <div class="footer__group">
+            <h2 class="footer__h">Company</h2>
+            <ul class="footer__links">
+              <li><a href="https://shopview.com/about">About Us</a></li>
+              <li><a href="https://shopview.com/careers">Careers</a></li>
+              <li><a href="https://shopview.com/blog">Blog</a></li>
+              <li><a href="https://shopview.com/newsletter">Newsletter</a></li>
+              <li><a href="https://shopview.com/shop-profit-leak-score">Shop Profit Leak Score</a></li>
+              <li><a href="https://shopview.com/reviews">Reviews</a></li>
+              <li><a href="https://shopview.com/customers">Case Studies</a></li>
+              <li><a href="https://shopview.com/contact">Contact Us</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 ShopView: Heavy-Duty Truck Repair Software. All rights reserved.</span>
+        <div class="footer__legal">
+          <a href="https://shopview.com/terms">Terms and Conditions</a>
+          <a href="https://shopview.com/privacy">Privacy Policy</a>
+          <a href="https://shopview.com/candidate-privacy-policy">Candidate Privacy Policy</a>
+          <a href="#flight" class="footer__back-top">Back to Top ↑</a>
+        </div>
+      </div>
+      <div class="footer__mark" aria-hidden="true"><img src="assets/brand/footer-wordmark.svg" alt="" loading="lazy" /></div>
+    </div>
+  </footer>
+
+  <!-- Flight + smooth-scroll settings. Compare per visit with ?snap=0 / ?snap=1 and ?smooth=0 / ?smooth=1 -->
+  <script>
+    window.SHOPVIEW_FLIGHT = {
+      snap: true,            // soft snap to the next checkpoint when scrolling stops (false = free scrolling)
+      smooth: true,          // Lenis smooth scrolling for the whole page
+      wheelMultiplier: 1.3,  // 1.2–1.5
+      duration: 1.1,         // seconds, 1.0–1.2
+      rain: {                // rain over the flight (S0 → the bay door in L1); off on phones and for reduced motion
+        enabled: true,
+        opacity: 0.4,        // overall layer opacity
+        density: 350,        // drops at 1440×900, scaled with the viewport area
+        angle: 10            // degrees from vertical; negative leans the other way
+      }
+    };
+  </script>
+  <script src="vendor/lenis-1.1.13/lenis.min.js"></script>
+  <script src="smooth.js?v=39"></script>
+  <script src="rain.js?v=39"></script>
+  <script src="flight.js?v=39"></script>
+  <script src="site.js?v=39"></script>
+</body>
+</html>
