@@ -220,6 +220,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* hero (S0) — rideradian-style: clean frame, copy bottom-left, pill CTAs */
 .hero__eyebrow { font-size: 12px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 .hero__lede { font-size: 18px; line-height: 1.5; color: var(--text); max-width: 44ch; }
+.hero__badges { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin: 28px 0 0; padding: 0; list-style: none; font-size: 14px; line-height: 20px; color: rgba(255,255,255,.6); }   /* live: mt-12 · gap-6 · text-sm · white/60 */
+.hero__badges li { display: flex; align-items: center; gap: 8px; }
+.hero__badges svg { width: 20px; height: 20px; flex: none; }
 .pill {
   display: inline-flex; align-items: center; gap: 12px; padding: 8px 8px 8px 20px;
   border-radius: 999px; border: 1px solid transparent; font-size: 15px; font-weight: 500; color: #fff; white-space: nowrap;
