@@ -509,7 +509,11 @@ ul { margin: 0; padding: 0; list-style: none; }
    REGULAR SECTIONS
    ============================================================ */
 .sec { padding-block: clamp(56px, 8vw, 100px); border-top: 1px solid var(--border); }
-.flight-live .flight + .sec { border-top: 0; }
+.flight-live .flight + .sec { border-top: 0; box-shadow: 0 -24px 48px rgba(0,0,0,.35); }   /* rises over the pinned last frame (flight.js pulls it up one screen) */
+/* every section after the flight sits above the still-pinned stage (which is positioned, so it would otherwise paint
+   over plain blocks) and is opaque; :where() keeps specificity 0 so a section's own background (e.g. the blue
+   reviews band) still wins */
+:where(.flight-live) :where(.flight) ~ :where(*) { position: relative; z-index: 3; background-color: var(--bg); }
 .sec__head { display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; max-width: 760px; }
 .sec__head--center { align-items: center; text-align: center; margin-inline: auto; }
 .sec__title { font-size: clamp(26px, 3vw, 34px); font-weight: 500; color: var(--white); line-height: 1.2; }

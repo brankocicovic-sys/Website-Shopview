@@ -14,6 +14,7 @@
   if (!root.classList.contains('flight-live')) return;
 
   var flight = document.getElementById('flight');
+  var next = flight.nextElementSibling;               // the Results section: rises over the last frame
   var stage = flight.querySelector('.flight__stage');
   var media = flight.querySelector('.flight__media');
   var poster = flight.querySelector('.flight__poster');
@@ -39,7 +40,9 @@
     { clip: 's6', scroll: 1.3, peak: 0.1, win: 0.22 },  // the wide parts-room view right after the EXIT door runs from ~0.89 of L5
                                               // to ~0.25 of L6 (clip ~0.78 → ~0.15): fades in from ~0.88 of L5, across the
                                               // seam, holds 0.0–0.2 of L6, out by 0.32 — long before the window into Hall C (~0.72)
-    { clip: 's7', scroll: 1.8 }               // Why ShopView + final CTA
+    // Why ShopView + final CTA. Fade-in unchanged (S7_FADE); then a short ~0.35-screen hold (was 0.6); then
+    // Results rises over the last frame. Was 1.8 (2.34 screens): ~1.45 screens of still copy at first.
+    { clip: 's7', scroll: 0.95 }
   ];
   LEGS.forEach(function (leg) { leg.scroll *= STRETCH; });
   // L0 "trusted by" beat (fractions of L0): S0 copy is gone by 0.25, the strip fades in
@@ -48,6 +51,10 @@
   var LINGER = 0.65;             // was 0.45: the camera all but holds while a checkpoint's copy is in
   var PLATEAU = 0.45;            // fraction of each copy window held at full opacity (readable hold)
   var LOOKAHEAD = 2.8;           // start fetching a leg this many screens before it plays (~2 checkpoints)
+  var S7_FADE = 0.72;            // S7 copy fade-in, in screens before STRETCH (= its old 0.4 of the 1.8 leg)
+  var PEEK = 0.09;               // the Results section enters this many screens before the S7 hold ends (≈9% of it
+                                 // peeks in at the bottom), then scrolls up OVER the pinned last frame; the flight
+                                 // releases once Results has covered it
   var VERSION = 'v4.6';   // clip cache-buster: bump whenever a clip is re-encoded (v4.6 = 1600x900 crf26 set)
   var N = LEGS.length;
   var CFG = window.SHOPVIEW_FLIGHT || { snap: true };
@@ -80,7 +87,9 @@
     var off = 0;
     LEGS.forEach(function (leg) { leg.start = off * vh; off += leg.scroll; leg.end = off * vh; });
     total = off;
-    flight.style.height = (total * vh + vh) + 'px';
+    // the stage stays pinned until Results (pulled up by one screen, on top) has fully covered it
+    flight.style.height = ((total - PEEK + 2) * vh) + 'px';
+    if (next) next.style.marginTop = -vh + 'px';
     flightTop = flight.getBoundingClientRect().top + window.scrollY;
     read();
   }
@@ -97,7 +106,7 @@
   // Where the rail/tab jumps land: hero at the very top, finale once its copy has settled.
   function checkpointY(leg) {
     if (leg.i === 0) return 0;
-    if (leg.i === N - 1) return leg.start + len(leg) * 0.6;
+    if (leg.i === N - 1) return leg.start + (S7_FADE * STRETCH + 0.06) * vh;   // just inside the S7 hold, copy at full
     return peakY(leg);
   }
 
@@ -250,8 +259,12 @@
     }
     var y = window.scrollY - flightTop, ys = cpYs(), eps = 0.01 * vh, target = null, k;
     if (down) {
-      if (y >= lastCpY() - eps) return;                       // past S7: browser's normal scrolling
-      for (k = 0; k < ys.length; k++) if (ys[k] > y + eps) { target = ys[k]; break; }
+      if (y >= lastCpY() - eps) {                             // at/after S7 (still in the flight): straight to Results
+        var res = document.getElementById('results');
+        if (!res || y >= (total - PEEK + 1) * vh) return;     // Results already covering / below: normal scrolling
+        target = res.getBoundingClientRect().top + window.scrollY - flightTop;
+      }
+      if (target == null) for (k = 0; k < ys.length; k++) if (ys[k] > y + eps) { target = ys[k]; break; }
     } else {
       if (y > total * vh) return;                             // below the flight: normal scrolling
       for (k = ys.length - 1; k >= 0; k--) if (ys[k] < y - eps) { target = ys[k]; break; }
@@ -294,7 +307,7 @@
       // checkpoint copy: fades + slides in around its peak, gone before the next leg
       var pr = (y - leg.start) / len(leg), cop, shift, enter = 0;
       if (leg.i === 0) { cop = y > leg.end ? 0 : smooth((0.25 - pr) / 0.16); shift = -clamp((pr - 0.09) / 0.16) * 3; }   // full to 0.09, gone by 0.25 (as before)
-      else if (leg.i === N - 1) { cop = y < leg.start ? 0 : smooth(pr / 0.4); shift = (1 - clamp(pr / 0.4)) * 3; }
+      else if (leg.i === N - 1) { var f7 = (y - leg.start) / (S7_FADE * STRETCH * vh); cop = y < leg.start ? 0 : smooth(f7); shift = (1 - clamp(f7)) * 3; }
       else if (leg.peak != null) {
         var w = win(leg) * len(leg), d = (peakY(leg) - y) / w;
         cop = d >= 0 ? hold(d) : holdOut(-d); shift = clamp(d, -1, 1) * 3 * (1 - cop);
@@ -314,7 +327,7 @@
           : 'translate(0,' + ty + 'px)';
         shot.style.opacity = (1 - enter).toFixed(3);
       }
-      if (leg.i === N - 1) el.style.setProperty('--in', smooth((pr - 0.08) / 0.4).toFixed(4));   // S7 photo: fades + rises just after the copy
+      if (leg.i === N - 1) el.style.setProperty('--in', smooth((y - leg.start) / (S7_FADE * STRETCH * vh) - 0.2).toFixed(4));   // S7 photo: fades + rises just after the copy
       el.classList.toggle('is-visible', cop > 0.001);
       var interactive = cop > 0.5;
       if (el.inert !== !interactive) el.inert = !interactive;
